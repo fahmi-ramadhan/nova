@@ -53,7 +53,6 @@ class GenreSeeder extends Seeder
             ['name' => 'Child in Peril'],
             ['name' => 'Cozy'],
             ['name' => 'Hardboiled'],
-            ['name' => 'Hardboiled'],
             ['name' => 'Historical'],
             ['name' => 'Howdunit'],
             ['name' => 'Legal'],
@@ -113,7 +112,6 @@ class GenreSeeder extends Seeder
             ['name' => 'Medical'],
             ['name' => 'Political'],
             ['name' => 'Psychological'],
-            ['name' => 'Religious'],
             ['name' => 'Religious'],
         )->create();
 
