@@ -74,7 +74,7 @@ class Book extends Resource
                 ->rules('required', 'integer', 'min:1', 'max:10000'),
             Number::make('Copies', 'number_of_copies')
                 ->sortable()
-                ->required()
+                ->rules('required', 'integer', 'min:0', 'max:10000')
                 ->help('The total number of copies available in the library.'),
             Boolean::make('Featured', 'is_featured')
                 ->help('Whether this book is featured on the homepage.')
