@@ -22,8 +22,8 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'genre_id' => Genre::factory(),
-            'subgenre_id' => fn(array $attributes) => Genre::factory()->state(['parent_id' => $attributes['genre_id']]),
+            'genre_id' => Genre::whereNull('parent_id')->inRandomOrder()->first()?->id,
+            'subgenre_id' => fn(array $attributes) => Genre::where('parent_id', $attributes['genre_id'])->inRandomOrder()->first()?->id,
             'author_id' => Author::factory(),
             'publisher_id' => Publisher::factory(),
             'title' => Str::title(fake()->words(4, true)),
