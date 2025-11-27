@@ -2,6 +2,9 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\HasReviewsFilter;
+use App\Nova\Filters\LoanTimeframeFromFilter;
+use App\Nova\Filters\LoanTimeframeToFilter;
 use App\Nova\Relationships\LoanFields;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
@@ -9,6 +12,7 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Email;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -57,6 +61,7 @@ class Customer extends Resource
                 ->creationRules('unique:customers,email')
                 ->updateRules('unique:customers,email,{{resourceId}}'),
             DateTime::make('Joined At')
+                ->filterable()
                 ->rules('required', 'date', 'before_or_equal:today')
                 ->max(now())
                 ->step(CarbonInterval::minutes(1)),
@@ -64,6 +69,7 @@ class Customer extends Resource
                 ->required(),
             BelongsToMany::make('Current Loans', resource: Book::class)
                 ->fields(new LoanFields()),
+            MorphMany::make('Reviews'),
         ];
     }
 
@@ -84,7 +90,11 @@ class Customer extends Resource
      */
     public function filters(NovaRequest $request): array
     {
-        return [];
+        return [
+            new HasReviewsFilter(),
+            new LoanTimeframeFromFilter(),
+            new LoanTimeframeToFilter(),
+        ];
     }
 
     /**
