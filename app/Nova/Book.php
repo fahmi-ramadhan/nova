@@ -2,11 +2,14 @@
 
 namespace App\Nova;
 
+use App\Nova\Relationships\LoanFields;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\HasMany;
@@ -104,6 +107,8 @@ class Book extends Resource
                         ->rules('required', Rule::exists('genres', 'id')->where('parent_id', $data->genre));
                 }),
             HasMany::make('Audio Recordings', 'recordings', resource: Recording::class),
+            BelongsToMany::make('Current Loans', resource: Customer::class)
+                ->fields(new LoanFields()),
         ];
     }
 
