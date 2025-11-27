@@ -10,6 +10,8 @@ use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Query\Search\SearchableMorphToRelation;
+use Laravel\Nova\Query\Search\SearchableText;
 
 class Review extends Resource
 {
@@ -27,17 +29,39 @@ class Review extends Resource
      */
     public static $title = 'title';
 
+    public static $with = ['reviewable'];
+
+    public static $globalSearchResults = 10;
+
     /**
      * The columns that should be searched.
      *
      * @var array
      */
-    public static $search = [
-        'id',
-        'title',
-        'stars',
-        'body',
-    ];
+    public static function searchableColumns()
+    {
+        return [
+            'id',
+            'title',
+            'stars',
+            new SearchableText('body'),
+            new SearchableMorphToRelation('reviewable', 'name', [
+                Author::class,
+            ]),
+            new SearchableMorphToRelation('reviewable', 'title', [
+                Book::class,
+            ])
+        ];
+    }
+
+    public function subtitle()
+    {
+        return match ($this->reviewable::class) {
+            \App\Models\Author::class => $this->reviewable->name,
+            \App\Models\Book::class => $this->reviewable->title,
+            default => null,
+        };
+    }
 
     /**
      * Get the fields displayed by the resource.
