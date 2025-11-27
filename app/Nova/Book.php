@@ -70,10 +70,17 @@ class Book extends Resource
                 ->alwaysShow()
                 ->fullWidth(),
             BelongsTo::make('Author')
+                ->showCreateRelationButton()
+                ->modalSize('3xl')
+                ->searchable()
+                ->withSubtitles()
                 ->sortable(),
             BelongsTo::make('Publisher')
-                ->hideFromIndex()
-                ->sortable(),
+                ->showCreateRelationButton()
+                ->modalSize('3xl')
+                ->searchable()
+                ->filterable()
+                ->hideFromIndex(),
             Number::make('Pages', 'number_of_pages')
                 ->filterable()
                 ->hideFromIndex()
