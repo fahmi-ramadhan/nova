@@ -6,8 +6,10 @@ use App\Models\Customer;
 
 class DiscountService
 {
-    public function email(Customer $customer, int $dicount): void
+    public function email(Customer $customer, int $discount): void
     {
-        // Logic to email the customer about the discount
+        logger('Sending discount email to ' . $customer->email . ' with ' . $discount . '% discount…');
+        sleep(1);
+        logger('Discount email sent!');
     }
 }
