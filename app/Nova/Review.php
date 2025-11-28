@@ -2,7 +2,12 @@
 
 namespace App\Nova;
 
+use App\Models\Review as ModelsReview;
+use App\Nova\Actions\DestroyUnverifiedReviews;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -113,6 +118,17 @@ class Review extends Resource
      */
     public function actions(NovaRequest $request): array
     {
-        return [];
+        return [
+            Action::using(
+                'Verify',
+                fn(ActionFields $fields, Collection $models) =>
+                ModelsReview::whereKey($models->pluck('id'))
+                    ->whereNull('verified_at')
+                    ->update(['verified_at' => now()])
+            ),
+            (new DestroyUnverifiedReviews())
+                ->standalone()
+                ->confirmText('Are you sure you want to delete all unverified reviews? This action cannot be undone.'),
+        ];
     }
 }
