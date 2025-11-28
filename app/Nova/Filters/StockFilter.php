@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Nova\Filters;
+
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Laravel\Nova\Filters\Filter;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
+class StockFilter extends Filter
+{
+    /**
+     * The filter's component.
+     *
+     * @var string
+     */
+    public $component = 'select-filter';
+
+    /**
+     * Apply the filter to the given query.
+     */
+    public function apply(NovaRequest $request, Builder $query, mixed $value): Builder
+    {
+        return $query->where('copies_in_stock', $value, 1);
+    }
+
+    /**
+     * Get the filter's available options.
+     *
+     * @return array<string, string>
+     */
+    public function options(NovaRequest $request): array
+    {
+        return [
+            'In Stock' => '>=',
+            'Out of Stock' => '<',
+        ];
+    }
+}

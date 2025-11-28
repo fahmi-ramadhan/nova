@@ -2,6 +2,7 @@
 
 namespace App\Nova\Lenses;
 
+use App\Nova\Filters\StockFilter;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\Paginator;
 use Laravel\Nova\Fields\ID;
@@ -30,18 +31,23 @@ class BookStock extends Lens
      */
     public static function query(LensRequest $request, Builder $query): Builder|Paginator
     {
-        return $request->withoutTableOrderPrefix()->withOrdering($request->withFilters(
-            $query->select('id', 'cover', 'title', 'number_of_copies')
-                ->addSelect([
-                    'copies_on_loan' => fn($query) => $query->selectRaw('count(*)')
-                        ->from('book_customer')
-                        ->whereColumn('book_customer.book_id', 'books.id')
-                        ->whereNull('book_customer.returned_at'),
-                    'copies_in_stock' => fn($query) => $query->selectRaw('number_of_copies - count(*)')
-                        ->from('book_customer')
-                        ->whereColumn('book_customer.book_id', 'books.id')
-                        ->whereNull('book_customer.returned_at'),
-                ])
+        return $request->withOrdering($request->withFilters(
+            $query->fromSub(
+                fn($query) => $query
+                    ->from('books')
+                    ->select('id', 'cover', 'title', 'number_of_copies')
+                    ->addSelect([
+                        'copies_on_loan' => fn($query) => $query->selectRaw('count(*)')
+                            ->from('book_customer')
+                            ->whereColumn('book_customer.book_id', 'books.id')
+                            ->whereNull('book_customer.returned_at'),
+                        'copies_in_stock' => fn($query) => $query->selectRaw('number_of_copies - count(*)')
+                            ->from('book_customer')
+                            ->whereColumn('book_customer.book_id', 'books.id')
+                            ->whereNull('book_customer.returned_at'),
+                    ]),
+                'books',
+            )
         ));
     }
 
@@ -84,7 +90,9 @@ class BookStock extends Lens
      */
     public function filters(NovaRequest $request): array
     {
-        return [];
+        return [
+            new StockFilter(),
+        ];
     }
 
     /**
