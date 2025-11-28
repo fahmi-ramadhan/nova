@@ -2,7 +2,8 @@
 
 namespace App\Nova\Dashboards;
 
-use Laravel\Nova\Cards\Help;
+use App\Nova\Metrics\LateBooks;
+use App\Nova\Metrics\UnverifiedReviews;
 use Laravel\Nova\Dashboards\Main as Dashboard;
 
 class Main extends Dashboard
@@ -15,7 +16,8 @@ class Main extends Dashboard
     public function cards(): array
     {
         return [
-            new Help,
+            new LateBooks(),
+            (new UnverifiedReviews())->width('full'),
         ];
     }
 }
