@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Laravel\Nova\Actions\Actionable;
 
 class Customer extends Model
 {
     use HasFactory;
+    use Actionable;
 
     protected $casts = [
         'joined_at' => 'datetime',
