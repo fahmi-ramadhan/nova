@@ -68,6 +68,12 @@ class Review extends Resource
             Text::make('Title')
                 ->rules('required', 'string', 'max:255'),
             Text::make('Body')
+                ->displayUsing(function ($value, $resource, $attribute) use ($request) {
+                    if ($request->isResourceIndexRequest()) {
+                        return str()->limit($value, 75);
+                    }
+                    return $value;
+                })
                 ->rules('required', 'string', 'max:65535'),
             Number::make('Stars')
                 ->rules('required', 'integer', 'min:1', 'max:5'),
