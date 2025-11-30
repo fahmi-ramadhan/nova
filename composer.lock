@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b46ef62c2d6b4120f588d05b481c9d9b",
+    "content-hash": "7f717c33b41c88afb1474f0f440c61d6",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -4331,12 +4331,53 @@
             "time": "2025-02-18T12:50:31+00:00"
         },
         {
+            "name": "readit/nyt-bestsellers",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/NytBestsellers",
+                "reference": "30ea892e8d1605786721aabd3f531b9ba364a71d"
+            },
+            "require": {
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "laravel/nova": "^5.0",
+                "laravel/nova-devtool": "^1.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Readit\\NytBestsellers\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Readit\\NytBestsellers\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "readit/popular-books-bar-chart",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/PopularBooksBarChart",
-                "reference": "e3fb1270297e4369e4ce794c18b4c3a1a5cda4e5"
+                "reference": "fa5164e84326b776b599665e89c1a13f32993322"
             },
             "require": {
                 "illuminate/support": "^10.0|^11.0|^12.0",
@@ -10029,7 +10070,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "readit/star-rating": 20,
-        "readit/popular-books-bar-chart": 20
+        "readit/popular-books-bar-chart": 20,
+        "readit/nyt-bestsellers": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

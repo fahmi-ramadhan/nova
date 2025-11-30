@@ -1,0 +1,32 @@
+/* Nova Tool CSS */
+.aspect-\[1\/1\.5\] {
+    aspect-ratio: 1/1.5
+}
+.w-32 {
+    width: 8rem
+}
+.flex-nowrap {
+    flex-wrap: nowrap
+}
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)))
+}
+@media (min-width: 768px) {
+    .md\:px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .dark\:text-gray-800 {
+        --tw-text-opacity: 1;
+        color: rgb(31 41 55 / var(--tw-text-opacity, 1))
+    }
+    .dark\:ring-gray-600 {
+        --tw-ring-opacity: 1;
+        --tw-ring-color: rgb(75 85 99 / var(--tw-ring-opacity, 1))
+    }
+}
+

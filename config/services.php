@@ -35,4 +35,7 @@ return [
         ],
     ],
 
+    'nyt' => [
+        'key' => env('NYT_KEY'),
+    ],
 ];

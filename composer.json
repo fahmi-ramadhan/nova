@@ -16,7 +16,8 @@
         "laravel/scout": "^10.22",
         "laravel/tinker": "^2.10.1",
         "readit/star-rating": "@dev",
-        "readit/popular-books-bar-chart": "@dev"
+        "readit/popular-books-bar-chart": "@dev",
+        "readit/nyt-bestsellers": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -104,6 +105,10 @@
         "1": {
             "type": "path",
             "url": "./nova-components/PopularBooksBarChart"
+        },
+        "2": {
+            "type": "path",
+            "url": "./nova-components/NytBestsellers"
         }
     }
 }
