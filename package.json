@@ -4,7 +4,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "build-star-rating": "cd nova-components/StarRating && npm run dev",
+        "build-star-rating-prod": "cd nova-components/StarRating && npm run prod"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

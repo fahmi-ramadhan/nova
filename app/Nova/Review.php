@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Readit\StarRating\StarRating;
 
 class Review extends Resource
 {
@@ -75,7 +76,8 @@ class Review extends Resource
                     return $value;
                 })
                 ->rules('required', 'string', 'max:65535'),
-            Number::make('Stars')
+            StarRating::make('Stars')
+                ->maxStars(5)
                 ->rules('required', 'integer', 'min:1', 'max:5'),
             DateTime::make('Verified At')
                 ->nullable()

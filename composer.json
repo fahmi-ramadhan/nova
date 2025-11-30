@@ -3,7 +3,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -11,7 +14,8 @@
         "laravel/framework": "^12.0",
         "laravel/nova": "^5.7",
         "laravel/scout": "^10.22",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "readit/star-rating": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -91,6 +95,10 @@
         "nova": {
             "type": "composer",
             "url": "https://nova.laravel.com"
+        },
+        "0": {
+            "type": "path",
+            "url": "./nova-components/StarRating"
         }
     }
 }
